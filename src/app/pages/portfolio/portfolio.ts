@@ -3,18 +3,30 @@ import { RouterLink } from '@angular/router';
 
 import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
 import { ThreeBackground } from '../../shared/three-background/three-background';
+import { TechIcon } from '../../shared/tech-icon/tech-icon';
+import { UiIcon, UiIconName } from '../../shared/ui-icon/ui-icon';
+
+interface SkillItem {
+  label: string;
+  slug?: string;
+}
 
 interface SkillGroup {
   title: string;
-  icon: string;
-  items: string[];
+  icon: UiIconName;
+  items: SkillItem[];
+}
+
+interface StackItem {
+  label: string;
+  slug?: string;
 }
 
 interface Project {
   name: string;
   tag: string;
   description: string;
-  stack: string[];
+  stack: StackItem[];
   features: string[];
   demo: string;
   repo: string;
@@ -22,7 +34,7 @@ interface Project {
 }
 
 interface Focus {
-  icon: string;
+  icon: UiIconName;
   title: string;
   text: string;
 }
@@ -30,7 +42,7 @@ interface Focus {
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [ScrollRevealDirective, ThreeBackground, RouterLink],
+  imports: [ScrollRevealDirective, ThreeBackground, RouterLink, TechIcon, UiIcon],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.css',
 })
@@ -56,11 +68,54 @@ export class Portfolio {
   ];
 
   readonly skills: SkillGroup[] = [
-    { title: 'Frontend', icon: '</>', items: ['React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS'] },
-    { title: 'Backend', icon: '{ }', items: ['Java', 'Spring Boot', 'Python', 'FastAPI', 'PHP', 'Laravel'] },
-    { title: 'Bases de datos', icon: 'DB', items: ['MySQL', 'MongoDB'] },
-    { title: 'Herramientas', icon: '⚙', items: ['Git', 'GitHub', 'VS Code', 'IntelliJ IDEA', 'Postman'] },
-    { title: 'Cloud', icon: '☁', items: ['AWS', 'Arquitectura Cloud', 'Servicios en la nube'] },
+    {
+      title: 'Frontend',
+      icon: 'code',
+      items: [
+        { label: 'React', slug: 'react' },
+        { label: 'TypeScript', slug: 'typescript' },
+        { label: 'JavaScript', slug: 'javascript' },
+        { label: 'HTML5', slug: 'html5' },
+        { label: 'CSS3', slug: 'css' },
+        { label: 'Tailwind CSS', slug: 'tailwindcss' },
+      ],
+    },
+    {
+      title: 'Backend',
+      icon: 'server',
+      items: [
+        { label: 'Java', slug: 'openjdk' },
+        { label: 'Spring Boot', slug: 'springboot' },
+        { label: 'Python', slug: 'python' },
+        { label: 'FastAPI', slug: 'fastapi' },
+        { label: 'PHP', slug: 'php' },
+        { label: 'Laravel', slug: 'laravel' },
+      ],
+    },
+    {
+      title: 'Bases de datos',
+      icon: 'database',
+      items: [
+        { label: 'MySQL', slug: 'mysql' },
+        { label: 'MongoDB', slug: 'mongodb' },
+      ],
+    },
+    {
+      title: 'Herramientas',
+      icon: 'wrench',
+      items: [
+        { label: 'Git', slug: 'git' },
+        { label: 'GitHub', slug: 'github' },
+        { label: 'VS Code' },
+        { label: 'IntelliJ IDEA', slug: 'intellijidea' },
+        { label: 'Postman', slug: 'postman' },
+      ],
+    },
+    {
+      title: 'Cloud',
+      icon: 'cloud',
+      items: [{ label: 'AWS' }, { label: 'Arquitectura Cloud' }, { label: 'Servicios en la nube' }],
+    },
   ];
 
   readonly projects: Project[] = [
@@ -68,7 +123,12 @@ export class Portfolio {
       name: "D'CAMPO",
       tag: 'Sistema E-commerce',
       description: 'Plataforma web de comercio electrónico desarrollada para la gestión y venta de productos.',
-      stack: ['Laravel', 'PHP', 'MySQL', 'JavaScript'],
+      stack: [
+        { label: 'Laravel', slug: 'laravel' },
+        { label: 'PHP', slug: 'php' },
+        { label: 'MySQL', slug: 'mysql' },
+        { label: 'JavaScript', slug: 'javascript' },
+      ],
       features: [
         'Catálogo de productos',
         'Carrito de compras',
@@ -87,7 +147,13 @@ export class Portfolio {
       tag: 'Plataforma educativa',
       description:
         'Aplicación educativa desarrollada con arquitectura frontend y backend, orientada a brindar herramientas de aprendizaje.',
-      stack: ['React', 'TypeScript', 'FastAPI', 'Python', 'MongoDB'],
+      stack: [
+        { label: 'React', slug: 'react' },
+        { label: 'TypeScript', slug: 'typescript' },
+        { label: 'FastAPI', slug: 'fastapi' },
+        { label: 'Python', slug: 'python' },
+        { label: 'MongoDB', slug: 'mongodb' },
+      ],
       features: [
         'Registro e inicio de sesión',
         'Autenticación mediante JWT',
@@ -106,7 +172,7 @@ export class Portfolio {
       tag: 'Plataforma de generación de clips con IA',
       description:
         'Proyecto orientado a transformar videos largos en clips cortos para TikTok, Instagram Reels y YouTube Shorts.',
-      stack: ['React', 'Python', 'FFmpeg', 'APIs'],
+      stack: [{ label: 'React', slug: 'react' }, { label: 'Python', slug: 'python' }, { label: 'FFmpeg' }, { label: 'APIs' }],
       features: [
         'Importación de videos',
         'Carga de archivos MP4',
@@ -135,22 +201,22 @@ export class Portfolio {
 
   readonly focus: Focus[] = [
     {
-      icon: '🧩',
+      icon: 'layers',
       title: 'Desarrollo Full Stack',
       text: 'Comprendo el desarrollo de una aplicación de manera integral: desde la interfaz que usa el usuario hasta la lógica del servidor y la base de datos.',
     },
     {
-      icon: '🎨',
+      icon: 'monitor',
       title: 'Desarrollo web',
       text: 'Creo interfaces modernas, responsivas y fáciles de utilizar con tecnologías actuales.',
     },
     {
-      icon: '🔗',
+      icon: 'link',
       title: 'Backend y APIs',
       text: 'Desarrollo servicios backend y APIs que permiten conectar diferentes aplicaciones y servicios.',
     },
     {
-      icon: '☁️',
+      icon: 'cloud',
       title: 'Cloud',
       text: 'Amplío mis conocimientos en computación en la nube y AWS para desplegar y escalar aplicaciones.',
     },

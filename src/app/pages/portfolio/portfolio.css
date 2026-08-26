@@ -255,10 +255,17 @@
   margin: 0 auto;
 }
 .hero__eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   font-size: 1rem;
   color: var(--accent-2);
   font-weight: 600;
   margin-bottom: 1rem;
+}
+.hero__eyebrow app-ui-icon {
+  color: var(--accent-2);
 }
 .hero__title {
   font-size: clamp(2.4rem, 6vw, 4.2rem);
@@ -340,7 +347,14 @@
   background: var(--surface-hover);
 }
 .focus-card__icon {
-  font-size: 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(124, 92, 255, 0.14);
+  color: var(--accent-2);
 }
 .focus-card h3 {
   margin-top: 0.7rem;
@@ -411,6 +425,9 @@
   gap: 0.45rem;
 }
 .skill-card__tags li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 0.78rem;
   padding: 0.3rem 0.65rem;
   border-radius: 999px;
@@ -476,6 +493,9 @@
   gap: 0.5rem;
 }
 .project-card__stack span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 0.78rem;
   font-weight: 600;
   padding: 0.32rem 0.7rem;
@@ -606,6 +626,9 @@
   border-bottom: none;
 }
 .contact-card__row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: var(--text-dim);
 }
 .contact-card__row a {

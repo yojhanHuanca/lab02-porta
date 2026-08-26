@@ -29,7 +29,10 @@
     <div class="hero__glow hero__glow--2"></div>
 
     <div class="hero__content">
-      <p class="hero__eyebrow reveal reveal--up is-visible">👋 Hola, soy</p>
+      <p class="hero__eyebrow reveal reveal--up is-visible">
+        <app-ui-icon name="wave" [size]="18" />
+        Hola, soy
+      </p>
       <h1 class="hero__title reveal reveal--up is-visible" style="transition-delay:.08s">
         {{ name }}
       </h1>
@@ -82,7 +85,7 @@
       <div class="focus-grid" appReveal="right">
         @for (f of focus; track f.title) {
           <div class="focus-card">
-            <span class="focus-card__icon">{{ f.icon }}</span>
+            <span class="focus-card__icon"><app-ui-icon [name]="f.icon" [size]="22" /></span>
             <h3>{{ f.title }}</h3>
             <p>{{ f.text }}</p>
           </div>
@@ -102,11 +105,16 @@
       <div class="skills-grid">
         @for (group of skills; track group.title; let i = $index) {
           <div class="skill-card" [appReveal]="'scale'" [revealDelay]="i * 80">
-            <span class="skill-card__icon">{{ group.icon }}</span>
+            <span class="skill-card__icon"><app-ui-icon [name]="group.icon" [size]="20" /></span>
             <h3>{{ group.title }}</h3>
             <ul class="skill-card__tags">
-              @for (item of group.items; track item) {
-                <li>{{ item }}</li>
+              @for (item of group.items; track item.label) {
+                <li>
+                  @if (item.slug) {
+                    <app-tech-icon [slug]="item.slug" [size]="14" />
+                  }
+                  {{ item.label }}
+                </li>
               }
             </ul>
           </div>
@@ -133,8 +141,13 @@
             <p class="project-card__desc">{{ p.description }}</p>
 
             <div class="project-card__stack">
-              @for (s of p.stack; track s) {
-                <span>{{ s }}</span>
+              @for (s of p.stack; track s.label) {
+                <span>
+                  @if (s.slug) {
+                    <app-tech-icon [slug]="s.slug" [size]="14" />
+                  }
+                  {{ s.label }}
+                </span>
               }
             </div>
 
@@ -145,8 +158,14 @@
             </ul>
 
             <div class="project-card__actions">
-              <a [href]="p.demo" class="btn btn--primary btn--sm">Ver proyecto</a>
-              <a [href]="p.repo" class="btn btn--outline btn--sm">GitHub</a>
+              <a [href]="p.demo" class="btn btn--primary btn--sm">
+                <app-ui-icon name="link" [size]="15" />
+                Ver proyecto
+              </a>
+              <a [href]="p.repo" class="btn btn--outline btn--sm">
+                <app-tech-icon slug="github" [size]="15" />
+                GitHub
+              </a>
             </div>
           </article>
         }
@@ -220,15 +239,15 @@
           <strong>{{ role }}</strong>
         </div>
         <div class="contact-card__row">
-          <span>Correo</span>
+          <span><app-ui-icon name="mail" [size]="16" /> Correo</span>
           <a [href]="'mailto:' + email">{{ email }}</a>
         </div>
         <div class="contact-card__row">
-          <span>GitHub</span>
+          <span><app-tech-icon slug="github" [size]="16" /> GitHub</span>
           <a [href]="github">github.com/yojhanHuanca</a>
         </div>
         <div class="contact-card__row">
-          <span>LinkedIn</span>
+          <span><app-ui-icon name="link" [size]="16" /> LinkedIn</span>
           <a [href]="linkedin">linkedin.com/in/yojhan-huanca</a>
         </div>
       </div>
