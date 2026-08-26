@@ -1,59 +1,112 @@
-# Lab 02 - Portafolio y CRUD de usuarios
+<div align="center">
 
-Proyecto que junta las dos partes del laboratorio en un solo repositorio, pensado para
-desplegarse completo en **Render**:
+# Lab 02 — Portafolio & CRUD de Usuarios
 
-- **Frontend**: portafolio personal de Yojhan Huanca hecho en Angular, con animaciones y un
-  fondo 3D (Three.js).
-- **Backend**: API REST en Node.js/Express para el CRUD de la tabla `usuarios`.
-- **Base de datos**: PostgreSQL en Render (plan free).
+**Portafolio personal full stack con panel administrativo, desplegado 100% en Render.**
 
-## Demo en vivo
+[![Angular](https://img.shields.io/badge/Angular-22-DD0031?logo=angular&logoColor=white)](https://angular.dev)
+[![Node.js](https://img.shields.io/badge/Node.js-24-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![Express](https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white)](https://expressjs.com)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4479A1?logo=postgresql&logoColor=white)](https://www.postgresql.org)
+[![Three.js](https://img.shields.io/badge/Three.js-r180-000000?logo=three.js&logoColor=white)](https://threejs.org)
+[![Render](https://img.shields.io/badge/Deploy-Render-46E3B7?logo=render&logoColor=white)](https://render.com)
 
-| Servicio | URL |
+[🌐 Ver portafolio en vivo](https://lab-02-angular.onrender.com) ·
+[⚙️ Panel de Usuarios](https://lab-02-angular.onrender.com/usuarios) ·
+[🔌 API](https://lab02-api.onrender.com/api/health)
+
+</div>
+
+---
+
+## 📖 Índice
+
+- [Sobre el proyecto](#-sobre-el-proyecto)
+- [Demo en vivo](#-demo-en-vivo)
+- [Stack tecnológico](#-stack-tecnológico)
+- [Estructura del repositorio](#-estructura-del-repositorio)
+- [Desarrollo local](#-desarrollo-local)
+- [Despliegue en Render](#️-despliegue-en-render)
+- [Funcionalidad del CRUD](#-funcionalidad-del-crud)
+- [Autor](#-autor)
+
+---
+
+## 🧭 Sobre el proyecto
+
+Este repositorio junta las dos entregas del laboratorio en **una sola aplicación desplegable**:
+
+| Parte | Descripción |
 |---|---|
-| Portafolio | https://lab-02-angular.onrender.com |
-| Panel de Usuarios (CRUD) | https://lab-02-angular.onrender.com/usuarios |
-| API | https://lab02-api.onrender.com |
+| 🎨 **Portafolio** | Landing page personal con animaciones, fondo 3D interactivo (Three.js) y scroll reveal, hecha en Angular. |
+| 🗃️ **CRUD de Usuarios** | Panel administrativo conectado a PostgreSQL en tiempo real — crear, listar, editar y eliminar usuarios, sin `localStorage`. |
 
-## Estructura del repositorio
+Ambas partes comparten un solo repositorio y se despliegan juntas mediante un **Render Blueprint**
+(`render.yaml`), que aprovisiona automáticamente la base de datos, la API y el sitio estático.
+
+## 🚀 Demo en vivo
+
+| Servicio | URL | Descripción |
+|---|---|---|
+| 🖥️ Portafolio | [lab-02-angular.onrender.com](https://lab-02-angular.onrender.com) | Landing page principal |
+| 👥 Panel de Usuarios | [/usuarios](https://lab-02-angular.onrender.com/usuarios) | CRUD conectado a PostgreSQL |
+| 🔌 API | [lab02-api.onrender.com](https://lab02-api.onrender.com/api/health) | Health check de la API |
+
+> ⏳ El plan gratuito de Render "duerme" la API tras ~15 min de inactividad. La primera petición
+> puede tardar hasta 50 s en responder — es esperado, no es un error.
+
+## 🛠 Stack tecnológico
+
+**Frontend**
+![Angular](https://img.shields.io/badge/-Angular-DD0031?logo=angular&logoColor=white)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white)
+![Three.js](https://img.shields.io/badge/-Three.js-000000?logo=three.js&logoColor=white)
+![CSS3](https://img.shields.io/badge/-CSS3-663399?logo=css3&logoColor=white)
+
+**Backend**
+![Node.js](https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/-Express-000000?logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-4479A1?logo=postgresql&logoColor=white)
+
+**Infraestructura**
+![Render](https://img.shields.io/badge/-Render-46E3B7?logo=render&logoColor=white)
+![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)
+
+## 📂 Estructura del repositorio
 
 ```text
-/                -> App Angular (portafolio + panel /usuarios)
-  src/app/pages/portfolio    -> Portafolio (hero 3D, skills, proyectos, contacto)
-  src/app/pages/usuarios     -> CRUD de usuarios (tabla, alta, edicion, baja)
-  src/app/shared             -> Iconos, fondo 3D, directiva de scroll-reveal
-  src/environments           -> URLs de la API (dev / produccion)
-/server          -> API Express + PostgreSQL (CRUD de usuarios)
-render.yaml      -> Blueprint de Render: base de datos + API + sitio estatico
+/                             App Angular (portafolio + panel /usuarios)
+├── src/app/pages/portfolio   Portafolio: hero 3D, skills, proyectos, contacto
+├── src/app/pages/usuarios    CRUD de usuarios: tabla, alta, edición, baja
+├── src/app/shared            Íconos, fondo 3D (Three.js), scroll-reveal
+└── src/environments          URLs de la API (dev / producción)
+
+/server                       API Express + PostgreSQL (CRUD de usuarios)
+├── index.js                  Punto de entrada, CORS, rutas
+├── db.js                     Conexión a PostgreSQL (pg / Neon serverless)
+└── routes.usuarios.js        Endpoints REST del CRUD
+
+render.yaml                   Blueprint: base de datos + API + sitio estático
 ```
 
-## Requisitos
+## 💻 Desarrollo local
 
-- Node.js 24 LTS recomendado.
-- npm.
-- Una base PostgreSQL para desarrollo local (ver siguiente sección).
+### Requisitos
 
-## Desarrollo local
+- Node.js 24 LTS
+- npm
+- Una base PostgreSQL para el backend (local o gratis en [Neon](https://neon.tech))
 
-### 1. Base de datos local
-
-El backend necesita una URL de conexión PostgreSQL. Dos opciones:
-
-- **PostgreSQL local**, si ya lo tienes instalado.
-- **[Neon](https://neon.tech)** (gratis, recomendado si tu red bloquea el puerto 5432): crea un
-  proyecto, copia el *connection string* que te da.
-
-### 2. Backend
+### 1 · Backend
 
 ```bash
 cd server
 npm install
 ```
 
-Crea `server/.env` (usa `server/.env.example` como plantilla):
+Crea `server/.env` (usa [`server/.env.example`](server/.env.example) como plantilla):
 
-```text
+```env
 DATABASE_URL=postgresql://usuario:password@host/basedatos?sslmode=require
 CORS_ORIGIN=http://localhost:4200
 PORT=3000
@@ -63,85 +116,94 @@ PORT=3000
 npm start
 ```
 
-La API crea sola la tabla `usuarios` si no existe, y queda en `http://localhost:3000/api`.
+La API crea sola la tabla `usuarios` si no existe y queda disponible en
+`http://localhost:3000/api`.
 
-> Nota: si tu conexión es a Neon, `server/db.js` detecta el host `neon.tech` y usa el driver
-> `@neondatabase/serverless` (HTTPS) en vez del driver `pg` normal (TCP 5432) — así funciona
-> aunque tu red bloquee ese puerto. Contra Postgres "normal" (local o Render) usa `pg` sin
-> cambios.
+> 💡 Si tu `DATABASE_URL` apunta a Neon, `server/db.js` detecta el host `neon.tech` y cambia
+> automáticamente al driver `@neondatabase/serverless` (HTTPS) en vez de `pg` (TCP 5432) — útil
+> en redes que bloquean ese puerto. Contra Postgres normal (local o Render) usa `pg` sin cambios.
 
-### 3. Frontend
+### 2 · Frontend
 
 ```bash
 npm install
 npm start
 ```
 
-Abrir `http://127.0.0.1:4200/`. Usa `src/environments/environment.ts` para apuntar a la API
-local (`http://localhost:3000/api` por defecto).
+Abre `http://127.0.0.1:4200/`. La URL de la API para desarrollo vive en
+[`src/environments/environment.ts`](src/environments/environment.ts).
 
-## Despliegue en Render — paso a paso
+## ☁️ Despliegue en Render
 
-Todo el proyecto (frontend, backend y base de datos) se despliega junto usando el Blueprint
-definido en [`render.yaml`](render.yaml). Son 3 recursos:
+Todo el proyecto se despliega junto con el Blueprint definido en
+[`render.yaml`](render.yaml), que crea 3 recursos:
 
-1. **`lab02-db`** — base de datos PostgreSQL (plan free).
-2. **`lab02-api`** — servicio web Node que corre `/server`, conectado a `lab02-db` mediante la
-   variable `DATABASE_URL` (Render la inyecta sola).
-3. **`lab-02-angular`** — sitio estático con el build de producción de Angular.
+| Recurso | Tipo | Rol |
+|---|---|---|
+| `lab02-db` | PostgreSQL (free) | Base de datos del CRUD |
+| `lab02-api` | Web Service (Node) | API Express, conectada sola a `lab02-db` |
+| `lab-02-angular` | Static Site | Build de producción de Angular |
 
-### Pasos
+<details>
+<summary><strong>Ver los pasos completos</strong></summary>
 
-1. **Sube el código a GitHub** (repo propio, puede ser público o privado):
+1. **Sube el código a GitHub**
    ```bash
    git add -A
    git commit -m "mensaje"
    git push origin main
    ```
 
-2. **Entra a Render** → [dashboard.render.com](https://dashboard.render.com) → botón **New** →
-   **Blueprint**.
+2. Entra a [dashboard.render.com](https://dashboard.render.com) → **New** → **Blueprint**.
 
 3. **Conecta el repositorio**:
-   - Si tu cuenta de GitHub ya está vinculada a Render, selecciónalo de la lista.
+   - Si tu GitHub ya está vinculado a Render, selecciónalo de la lista.
    - Si es privado y no aparece, usa **Connect account** para autorizar GitHub, o pega la URL en
-     "Public Git Repository" si el repo es público.
+     "Public Git Repository" si el repo es público (nota: por esta vía el **auto-deploy queda
+     desactivado** — cada cambio necesita un *Manual Deploy* desde el dashboard).
 
-4. Render detecta `render.yaml` automáticamente y muestra los 3 recursos a crear
-   (`lab02-db`, `lab02-api`, `lab-02-angular`). Ponle un nombre al Blueprint y dale
-   **Deploy Blueprint**.
+4. Render detecta `render.yaml` solo y muestra los 3 recursos a crear. Ponle nombre al Blueprint
+   y dale **Deploy Blueprint**.
 
-5. Espera unos minutos mientras Render:
-   - Aprovisiona la base de datos.
-   - Instala dependencias y arranca la API (`npm ci && npm start` dentro de `/server`).
-   - Compila Angular en modo producción (`npm ci && npm run build`) y publica
-     `dist/lab-02/browser`.
+5. Espera unos minutos mientras Render aprovisiona la base, instala dependencias, arranca la API
+   y compila + publica el frontend.
 
-6. **Verifica las URLs**: cada servicio queda en `https://<nombre-del-servicio>.onrender.com`.
-   Si Render te asignó nombres distintos a `lab02-api` / `lab-02-angular` (por ejemplo si esos
-   nombres ya estaban tomados), actualiza la URL de la API en
-   [`src/environments/environment.prod.ts`](src/environments/environment.prod.ts) y vuelve a
-   hacer push — Render redepliega solo con cada push a `main`.
+6. **Verifica las URLs**: cada servicio queda en `https://<nombre>.onrender.com`. Si Render
+   asignó nombres distintos a `lab02-api` o `lab-02-angular`, actualiza la URL en
+   [`environment.prod.ts`](src/environments/environment.prod.ts) y vuelve a desplegar.
 
-7. **Revisa CORS**: la variable `CORS_ORIGIN` del servicio `lab02-api` debe coincidir con la URL
-   pública del frontend. Ya viene configurada en `render.yaml`, pero si cambiaste el nombre del
-   sitio estático, actualízala en el dashboard de Render (`lab02-api` → *Environment*).
+7. **Revisa CORS**: `CORS_ORIGIN` en `lab02-api` debe coincidir con la URL pública del frontend
+   (ya viene configurado en `render.yaml`).
 
-### Cosas a tener en cuenta (plan free de Render)
+</details>
 
-- **La API "duerme"** tras ~15 minutos sin tráfico. La primera petición después de eso puede
-  tardar hasta 50 segundos en responder — es normal, no es un error.
-- **La base de datos gratuita expira a los 30 días** de creada. Render avisa la fecha exacta en
-  el dashboard de `lab02-db`; si se acerca, hay que subir a un plan pago o crear una base nueva
-  (y actualizar el `DATABASE_URL` del servicio `lab02-api`).
+> ⚠️ **Plan free**: la base de datos gratuita de Render expira a los 30 días de creada — Render
+> avisa la fecha exacta en su dashboard. Antes de esa fecha hay que subir a un plan pago o crear
+> una base nueva y actualizar `DATABASE_URL` en `lab02-api`.
 
-## Funcionamiento del CRUD
+## ✅ Funcionalidad del CRUD
 
-La sección **Panel de Usuarios** (`/usuarios`, accesible desde el botón del portafolio) permite:
+El **Panel de Usuarios** (`/usuarios`, accesible desde el botón del portafolio) permite:
 
-- Crear usuarios (nombre, correo, teléfono, rol).
-- Listar y buscar usuarios.
-- Editar usuarios.
-- Eliminar usuarios (con confirmación).
+- ➕ Crear usuarios (nombre, correo, teléfono, rol)
+- 📋 Listar y buscar usuarios
+- ✏️ Editar usuarios existentes
+- 🗑️ Eliminar usuarios (con confirmación)
 
-Los datos se guardan en PostgreSQL a través de la API Express — no se usa `localStorage`.
+Todos los datos viven en PostgreSQL a través de la API Express — nada se guarda en
+`localStorage`.
+
+## 👤 Autor
+
+**Yojhan Leodan Huanca Yucra**
+Full Stack Developer · Estudiante de Diseño y Desarrollo de Software en Tecsup
+
+📧 yhuancayucra@gmail.com
+
+---
+
+<div align="center">
+
+Proyecto académico — Lab 02, Computación en la Nube (AWS) · Tecsup
+
+</div>
