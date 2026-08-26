@@ -1,0 +1,246 @@
+<!-- ================= NAVBAR ================= -->
+<header class="nav" [class.nav--scrolled]="scrolled()">
+  <div class="nav__inner">
+    <a href="#inicio" class="nav__brand">YH<span>.</span></a>
+
+    <nav class="nav__links" [class.nav__links--open]="menuOpen()">
+      @for (item of nav; track item.id) {
+        <a [href]="'#' + item.id" (click)="closeMenu()">{{ item.label }}</a>
+      }
+      <a routerLink="/usuarios" (click)="closeMenu()" class="nav__links-cta">Panel de Usuarios</a>
+    </nav>
+
+    <div class="nav__cta-group">
+      <a routerLink="/usuarios" class="btn btn--outline nav__cta">Panel de Usuarios</a>
+      <a href="#contacto" class="btn btn--ghost nav__cta">Contáctame</a>
+    </div>
+
+    <button class="nav__burger" [class.is-open]="menuOpen()" (click)="toggleMenu()" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ================= HERO ================= -->
+  <section id="inicio" class="hero">
+    <app-three-background />
+    <div class="hero__glow hero__glow--1"></div>
+    <div class="hero__glow hero__glow--2"></div>
+
+    <div class="hero__content">
+      <p class="hero__eyebrow reveal reveal--up is-visible">👋 Hola, soy</p>
+      <h1 class="hero__title reveal reveal--up is-visible" style="transition-delay:.08s">
+        {{ name }}
+      </h1>
+      <p class="hero__role reveal reveal--up is-visible" style="transition-delay:.16s">
+        <span class="hero__role-gradient">{{ role }}</span>
+      </p>
+      <p class="hero__desc reveal reveal--up is-visible" style="transition-delay:.24s">
+        Estudiante de Diseño y Desarrollo de Software en Tecsup, interesado en el desarrollo de
+        aplicaciones web, tecnologías Cloud y creación de soluciones digitales. Me gusta combinar
+        frontend, backend y bases de datos para construir soluciones funcionales, escalables y
+        fáciles de utilizar.
+      </p>
+
+      <div class="hero__actions reveal reveal--up is-visible" style="transition-delay:.32s">
+        <a href="#proyectos" class="btn btn--primary">Ver mis proyectos</a>
+        <a href="#" class="btn btn--outline">Descargar CV</a>
+        <a routerLink="/usuarios" class="btn btn--outline">Panel de Usuarios</a>
+        <a href="#contacto" class="btn btn--outline">Contáctame</a>
+      </div>
+
+      <div class="hero__scroll reveal reveal--up is-visible" style="transition-delay:.4s">
+        <span class="hero__scroll-dot"></span>
+        <span>Desliza para explorar</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOBRE MI ================= -->
+  <section id="sobre-mi" class="section">
+    <div class="section__inner grid-2">
+      <div appReveal="left">
+        <p class="eyebrow">Sobre mí</p>
+        <h2 class="section__title">Construyo software con propósito</h2>
+        <p class="section__text">
+          Soy estudiante de Diseño y Desarrollo de Software en Tecsup y cuento con conocimientos en
+          desarrollo Full Stack. Mi formación me ha permitido trabajar en diferentes proyectos de
+          software, desarrollando interfaces web, APIs, sistemas de gestión y aplicaciones
+          conectadas a bases de datos.
+        </p>
+        <p class="section__text">
+          Actualmente estoy fortaleciendo mis conocimientos en desarrollo web, backend, APIs, bases
+          de datos y computación en la nube, especialmente utilizando tecnologías modernas.
+        </p>
+        <p class="section__text">
+          Mi objetivo es seguir desarrollándome como profesional y participar en proyectos donde
+          pueda aplicar mis conocimientos y continuar aprendiendo nuevas tecnologías.
+        </p>
+      </div>
+
+      <div class="focus-grid" appReveal="right">
+        @for (f of focus; track f.title) {
+          <div class="focus-card">
+            <span class="focus-card__icon">{{ f.icon }}</span>
+            <h3>{{ f.title }}</h3>
+            <p>{{ f.text }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section id="skills" class="section section--alt">
+    <div class="section__inner">
+      <div class="section__head" appReveal="up">
+        <p class="eyebrow">Mis habilidades</p>
+        <h2 class="section__title">Tecnologías con las que trabajo</h2>
+      </div>
+
+      <div class="skills-grid">
+        @for (group of skills; track group.title; let i = $index) {
+          <div class="skill-card" [appReveal]="'scale'" [revealDelay]="i * 80">
+            <span class="skill-card__icon">{{ group.icon }}</span>
+            <h3>{{ group.title }}</h3>
+            <ul class="skill-card__tags">
+              @for (item of group.items; track item) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROYECTOS ================= -->
+  <section id="proyectos" class="section">
+    <div class="section__inner">
+      <div class="section__head" appReveal="up">
+        <p class="eyebrow">Proyectos</p>
+        <h2 class="section__title">Cosas que he construido</h2>
+      </div>
+
+      <div class="projects">
+        @for (p of projects; track p.name; let i = $index) {
+          <article class="project-card" [appReveal]="i % 2 === 0 ? 'left' : 'right'" [style.--accent]="p.accent">
+            <div class="project-card__head">
+              <h3>{{ p.name }}</h3>
+              <span class="project-card__tag">{{ p.tag }}</span>
+            </div>
+            <p class="project-card__desc">{{ p.description }}</p>
+
+            <div class="project-card__stack">
+              @for (s of p.stack; track s) {
+                <span>{{ s }}</span>
+              }
+            </div>
+
+            <ul class="project-card__features">
+              @for (feat of p.features; track feat) {
+                <li>{{ feat }}</li>
+              }
+            </ul>
+
+            <div class="project-card__actions">
+              <a [href]="p.demo" class="btn btn--primary btn--sm">Ver proyecto</a>
+              <a [href]="p.repo" class="btn btn--outline btn--sm">GitHub</a>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FORMACION ================= -->
+  <section id="formacion" class="section section--alt">
+    <div class="section__inner grid-2">
+      <div appReveal="left">
+        <p class="eyebrow">Formación</p>
+        <h2 class="section__title">Tecsup</h2>
+        <p class="section__subtitle">Diseño y Desarrollo de Software · Estudiante</p>
+        <p class="section__text">
+          Formación enfocada en el desarrollo de software, programación, bases de datos, desarrollo
+          web, integración de sistemas, metodologías ágiles y tecnologías Cloud.
+        </p>
+
+        <div class="learning">
+          <p class="learning__title">Actualmente aprendiendo</p>
+          <div class="learning__tags">
+            @for (l of learning; track l) {
+              <span>{{ l }}</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-panel" appReveal="right">
+        <div class="stack-row">
+          <span class="stack-row__label">Frontend</span>
+          <span class="stack-row__value">React · TypeScript · JavaScript · HTML · CSS · Tailwind</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-row__label">Backend</span>
+          <span class="stack-row__value">Java · Spring Boot · Python · FastAPI · PHP · Laravel</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-row__label">Database</span>
+          <span class="stack-row__value">MySQL · MongoDB</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-row__label">Tools</span>
+          <span class="stack-row__value">Git · GitHub · VS Code · IntelliJ IDEA · Postman</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-row__label">Cloud</span>
+          <span class="stack-row__value">AWS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACTO ================= -->
+  <section id="contacto" class="section contact">
+    <div class="section__inner contact__inner" appReveal="scale">
+      <p class="eyebrow">Contacto</p>
+      <h2 class="section__title">¿Tienes un proyecto?</h2>
+      <p class="section__text contact__text">
+        Si deseas contactarme, puedes hacerlo mediante mis diferentes canales.
+      </p>
+
+      <div class="contact-card">
+        <div class="contact-card__row">
+          <span>Nombre</span>
+          <strong>{{ name }}</strong>
+        </div>
+        <div class="contact-card__row">
+          <span>Perfil</span>
+          <strong>{{ role }}</strong>
+        </div>
+        <div class="contact-card__row">
+          <span>Correo</span>
+          <a [href]="'mailto:' + email">{{ email }}</a>
+        </div>
+        <div class="contact-card__row">
+          <span>GitHub</span>
+          <a [href]="github">github.com/yojhanHuanca</a>
+        </div>
+        <div class="contact-card__row">
+          <span>LinkedIn</span>
+          <a [href]="linkedin">linkedin.com/in/yojhan-huanca</a>
+        </div>
+      </div>
+
+      <a [href]="'mailto:' + email" class="btn btn--primary btn--lg">Escríbeme un correo</a>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <p>{{ name }}</p>
+  <p class="footer__muted">{{ role }} · Diseño y Desarrollo de Software</p>
+  <p class="footer__muted">&copy; {{ year }} {{ name }}. Todos los derechos reservados.</p>
+</footer>
